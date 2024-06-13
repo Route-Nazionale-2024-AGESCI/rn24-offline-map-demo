@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Quick Start - Leaflet</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/protomaps-leaflet@latest/dist/protomaps-leaflet.min.js"></script>
+	<style>
+        #map {
+          /* Decide how wide the map should be */
+          width: 100%;
+          /* For some reason 100vh (height of entire viewport) gave me a scrollbar */
+          height: 95vh;
+          /* Set lighter background for areas without features. Overrides
+             leaflet's internal CSS */
+          background: #fffbf6;
+        }
+      </style>
+
+	
+</head>
+<body>
+
+
+
+<div id="map"></div>
+<script>
+
+    let config = {
+        // The `pmtiles` file you extracted
+        file: "verona.pmtiles",
+        // The center that should be shown on the map. [lat, lon] format
+        loc: [45.430938, 11.002605],
+        // How much to be zoomed in at the start (higher number = more zoomed in)
+        zoom: 13,
+    };
+
+    
+    // const map = L.map('map').setView([45.430938, 11.002605], 13);
+
+    const map = L.map('map', {minZoom: 13});
+    map.setView(config.loc, config.zoom);
+
+    // http://localhost:8001/verona.osm.pbf
+    var layer = protomapsL.leafletLayer({
+        url: config.file,
+        theme: 'light'
+        // paint_rules: protomapsL.paintRules(protomapsL.dark, ""),
+        // label_rules: protomapsL.labelRules(protomapsL.dark, ""),
+    })
+    layer.addTo(map)
+
+	// const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	// 	maxZoom: 19,
+	// 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	// }).addTo(map);
+
+	// const marker = L.marker([51.5, -0.09]).addTo(map)
+	// 	.bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
+
+	// const circle = L.circle([51.508, -0.11], {
+	// 	color: 'red',
+	// 	fillColor: '#f03',
+	// 	fillOpacity: 0.5,
+	// 	radius: 500
+	// }).addTo(map).bindPopup('I am a circle.');
+
+	// const polygon = L.polygon([
+	// 	[51.509, -0.08],
+	// 	[51.503, -0.06],
+	// 	[51.51, -0.047]
+	// ]).addTo(map).bindPopup('I am a polygon.');
+
+
+	// const popup = L.popup()
+	// 	.setLatLng([51.513, -0.09])
+	// 	.setContent('I am a standalone popup.')
+	// 	.openOn(map);
+
+	// function onMapClick(e) {
+	// 	popup
+	// 		.setLatLng(e.latlng)
+	// 		.setContent(`You clicked the map at ${e.latlng.toString()}`)
+	// 		.openOn(map);
+	// }
+
+	// map.on('click', onMapClick);
+
+</script>
+
+
+
+</body>
+</html>
